@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<!--
+Name: Tess DiStefano
+Date: May 31,2016
+Email: tess.distefano@gmail.com
+Drexel CS 530 Developing User Interfaces - Project Part 7
+-->
+<html margin=0px>
+<head>
+	<title>Snarkbot</title>
+
+	<!-- Meta-information about the page for browsers -->
+    <meta charset="utf-8">
+
+	<link rel="stylesheet" href="snarkbot.css">
+	
+	<script LANGUAGE="JavaScript"><!--
+
+		var comebacks = [
+			["your mom","Your mother smells like a leper gnome!"],
+			["poop","Who dares DEFILE this ancient land?"],
+			["shit","Who dares DEFILE this ancient land?"],
+			["animal","I've got the BEAST in my sights."],
+			["beast","I've got the BEAST in my sights."],
+			["ugly","I've got the BEAST in my sights."],
+			["fit","You are not FIT to rule the horde."],
+			["hunt","The hunter becomes the hunted."],
+			["gun","The hunter becomes the hunted."],
+			["shoot","The hunter becomes the hunted."],
+			["dog","YOU scurvy dog."],
+			["bitch","I let the dogs out."],
+			["idiot","Idiot? Knowledge is power, and I... know a lot"],
+			["stupid","Stupid? Knowledge is power, and I... know a lot"]];
+		var neutralComebacks = [
+			"Your mother smells like a leper gnome!",
+			"You are not fit to rule the horde.",
+			"You call that an insult?",
+			"You have been measured and found wanting."];
+		
+		var mainPage;
+		var userPage;
+		var antagonistPage;
+		
+		var meName;
+		var antName;
+
+		var addNewAntBtn;
+		var submitBtn;
+		var cancelBtn;
+
+		var insultAnt;
+		var defaultInsultAnt = "Enter Antagonist Comment here";
+		var responseMe;
+		var defaultResponseMe = "Your response will show up here";
+		
+		//var antagonists;
+		var antagonistObjects = new Array();
+		
+		//when page is loaded, the pest is initialized with this function
+		function Init(m)
+		{		
+			window.location = "Snarkbot.html#main";
+			
+			mainPage=document.getElementById("mainPage");
+			userPage=document.getElementById("userPage");
+			antagonistPage=document.getElementById("antagonistPage");
+			meName = document.getElementById("meName");
+			submitBtn = document.getElementById("submitBtn");			
+			cancelBtn = document.getElementById("cancelBtn");			
+			addNewAntBtn = document.getElementById("addNewAntBtn");
+			antName = document.getElementById("antName");			
+			insultAnt = document.getElementById("insultAnt");
+			responseMe = document.getElementById("responseMe");
+			//antagonists = document.getElementById("antagonists");
+			
+			nameUserEntry = document.getElementById("nameUserEntry");
+			nameAntEntry = document.getElementById("nameAntEntry");
+			ageUserEntry = document.getElementById("ageUserEntry");
+			ageAntEntry = document.getElementById("ageAntEntry");
+			genderUserEntry = document.getElementById("genderUserEntry");
+			genderAntEntry = document.getElementById("genderAntEntry");
+			
+			userPage.style.visibility = 'collapse';
+			antagonistPage.style.visibility = 'collapse';
+		}
+		
+		function rolloverAnt(image)
+		{
+			image.src='img/antagonisthover.jpg';
+		}
+		function stopRolloverAnt(image)
+		{
+			image.src='img/antagonist.jpg';
+		}
+		function rolloverUser(image)
+		{
+			image.src='img/batmanhover.jpg';
+		}
+		function stopRolloverUser(image)
+		{
+			image.src='img/batman.jpg';
+		}
+		
+		function cancel()
+		{
+			insultAnt.value = defaultInsultAnt;
+		}
+		
+		function submit()
+		{
+			var parse = insultAnt.value;
+			
+			console.log("submitted something");
+			
+			var foundResponse = false;
+			for(var i=0; i<comebacks.length; i++)
+			{
+				if (parse.indexOf(comebacks[i][0]) > -1)
+				{
+					console.log("found a response");
+					responseMe.value = comebacks[i][1];
+					foundResponse = true;
+				}
+			}
+			
+			if (foundResponse == false)
+			{
+				var time = Math.round((Math.abs(Math.random()) * 10) % (neutralComebacks.length-1));
+				console.log("randomly generating a response for " + time);
+				
+				responseMe.value = neutralComebacks[time];
+			}
+		}
+		
+		function modifyUser()
+		{
+			userPage.style.visibility = 'visible';
+			mainPage.style.visibility = 'collapse';
+			window.location = "Snarkbot.html#user";
+		}
+		function modifyAnt()
+		{
+			antagonistPage.style.visibility = 'visible';
+			mainPage.style.visibility = 'collapse';
+			window.location = "Snarkbot.html#antagonist";
+		}
+		
+		function makeUser()
+		{
+			cancelMakeUser();
+		}
+		function cancelMakeUser()
+		{
+			mainPage.style.visibility = 'visible';
+			userPage.style.visibility = 'collapse';
+			window.location = "Snarkbot.html#main";
+		}
+		
+		function makeAnt()
+		{
+			/*var newant = {name:nameAntEntry,
+				age:ageAntEntry,
+				gender:genderAntEntry}
+			antagonistObjects.push(newant);
+			
+			var options = '';
+
+			for(var i = 0; i < antagonistObjects.length; i++)
+				for (property in antagonistObjects[i])
+					if (property === 'name')
+						options += '<option value="'+antagonistObjects[i][property]+'" />';
+
+			//antagonists.innerHTML = options;
+			console.log(options);*/
+			cancelMakeAnt();
+		}
+		function cancelMakeAnt()
+		{
+			mainPage.style.visibility = 'visible';
+			antagonistPage.style.visibility = 'collapse';
+			window.location = "Snarkbot.html#main";
+		}
+		
+		//--></script>
+
+</head>
+<body onLoad="Init(this)">
+
+	<table id="mainPage"> <!-- 5 rows, 3 columns -->
+		<a name="main">
+		<tr>
+			<td COLSPAN="3">
+				<h1>Snarkbot</h1>
+			</td>
+		</tr>
+		<tr>
+			<td ROWSPAN="3">
+				<img
+				id="imgAnt" name="nameImgAnt" src="img/antagonist.jpg"></img>
+			</td>
+			<td COLSPAN="2">
+				<textarea id="insultAnt" name="nameInsultAnt">Enter Antagonist Comment here</textarea>
+			</td>
+			<td></td>
+		</tr>
+			<td></td>
+			<td></td>
+			<td></td>
+		<tr/>
+		<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>
+				<input type="text" id="antName" name="nameAntName" value="Meanie"/>
+			</td>
+			<td>
+				<input type="button" id="cancelBtn" value="Cancel" name="nameCancelBtn" onClick="cancel()">
+			</td>
+			<td>
+				<input type="button" id="submitBtn" value="Submit" name="nameSubmitBtn" onClick="submit()">
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<input type="button" id="addNewAntBtn" value="Add New Antagonist" name="nameAddNewAntBtn" onClick="modifyAnt()">
+			</td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td ROWSPAN="3">
+				<img
+				onMouseOver = 'rolloverUser(this)' onMouseOut = 'stopRolloverUser(this)'
+				id="imgMe" name="nameImgMe" onClick="modifyUser()" src="img/batman.jpg"></img>
+			</td>
+			<td COLSPAN="2" ROWSPAN="4">
+				<textarea readonly id="responseMe" name="nameResponseMe">Your response will show up here</textarea>
+			</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>
+				<input type="text" id="meName" name="nameMeName" value="Tess"/>
+			</td>
+			<td></td>
+			<td></td>
+		</tr>
+		</a>
+	</table>
+	
+	<table id="antagonistPage">
+		<a name="antagonist">
+		<tr>
+			<td COLSPAN="2">
+				<h1>Snarkbot's Adversary</h1>
+			</td>
+		</tr>
+		<tr>
+			<td COLSPAN="2" width="auto">
+				<label for="nameAntEntry">Name</label>
+				<input type="text" style="float: right;" id="nameAntEntry" name="nameNameAntEntry" value="Jerk's name">
+			</td>
+		</tr>
+		<tr>
+			<td COLSPAN="2" width="auto">
+				<label for="ageAntEntry">Age</label>
+				<input type="text" style="float: right;" id="ageAntEntry" name="nameAgeAntEntry" list="agesAnt"/>
+				<datalist id="agesAnt">
+					<option value="5">
+					<option value="6">
+					<option value="7">
+					<option value="8">
+					<option value="9">
+					<option value="10">
+					<option value="11">
+					<option value="12">
+					<option value="13">
+					<option value="14">
+					<option value="15">
+					<option value="16">
+					<option value="17">
+					<option value="18">
+					<option value="19">
+					<option value="20">
+					<option value="21">
+					<option value="22">
+					<option value="23">
+				</datalist>
+			</td>
+		</tr>
+		<tr>
+			<td COLSPAN="2" width="auto">
+				<label for="genderAntEntry">Gender</label>
+				<input type="text" style="float: right;" id="genderAntEntry" name="nameGenderAntEntry" list="gendersAnt"/>
+				<datalist id="gendersAnt">
+					<option value="Female">
+					<option value="Male">
+					<option value="Other">
+				</datalist>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<input type="button" value="Cancel" onClick="cancelMakeAnt()">
+			</td>
+			<td>
+				<input type="button" value="Submit" onClick="makeAnt()">
+			</td>
+		</tr>
+		</a>
+	</table>
+	
+	<table id="userPage">
+		<a name="user">
+		<tr>
+			<td COLSPAN="2">
+				<h1>Snarkbot User</h1>
+			</td>
+		</tr>
+		<tr>
+			<td COLSPAN="2" width="auto">
+				<label for="nameUserEntry">Name</label>
+				<input type="text" style="float: right;"  id="nameUserEntry" cols="40" rows="1" name="nameNameUserEntry" value="Your name">
+			</td>
+		</tr>
+		<tr>
+			<td COLSPAN="2" width="auto">
+				<label for="ageEntry">Age</label>
+				<input type="text" style="float: right;" id="ageEntry" name="nameAgeEntry" list="ages"/>
+				<datalist id="ages">
+					<option value="5">
+					<option value="6">
+					<option value="7">
+					<option value="8">
+					<option value="9">
+					<option value="10">
+					<option value="11">
+					<option value="12">
+					<option value="13">
+					<option value="14">
+					<option value="15">
+					<option value="16">
+					<option value="17">
+					<option value="18">
+					<option value="19">
+					<option value="20">
+					<option value="21">
+					<option value="22">
+					<option value="23">
+				</datalist>
+			</td>
+		</tr>
+		<tr>
+			<td COLSPAN="2" width="auto">
+				<label for="genderUserEntry">Gender</label>
+				<input type="text" style="float: right;" id="genderUserEntry" name="nameGenderUserEntry" list="genders"/>
+				<datalist id="genders">
+					<option value="Female">
+					<option value="Male">
+					<option value="Other">
+				</datalist>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<input type="button" value="Cancel" onClick="cancelMakeUser()">
+			</td>
+			<td>
+				<input type="button" value="Submit" onClick="makeUser()">
+			</td>
+		</tr>
+		</a>
+	</table>
+	
+	</br>
+	</br>
+	</br>
+	</br>
+	</br>
+	</br>
+	</br>
+	</br>
+	</br>
+	</br>
+	</br>
+	</br>
+	</br>
+	</br>
+	</br>
+	</br>
+	</br>
+	</br>
+	</br>
+	</br>
+	</br>
+	</br>
+	</br>
+	</br>
+	</br>
+	</br>
+	</br>
+	</br>
+	</br>
+	</br>
+	</br>
+	</br>
+	</br>
+	</br>
+	</br>
+	</br>
+	</br>
+	</br>
+	</br>
+	</br>
+	</br>
+	</br>
+	</br>
+	</br>
+	</br>
+	</br>
+	</br>
+	</br>
+	</br>
+	</br>
+	</br>
+	</br>
+	</br>
+	</br>
+	</br>
+	</br>
+	</br>
+	</br>
+	</br>
+	</br>
+	</br>
+	</br>
+	</br>
+	</br>
+	</br>
+	</br>
+</body>
+
+</html>

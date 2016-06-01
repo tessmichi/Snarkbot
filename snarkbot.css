@@ -1,0 +1,123 @@
+/*
+Name: Tess DiStefano
+Date: May 31,2016
+Email: tess.distefano@gmail.com
+Drexel CS 530 Developing User Interfaces - Assignment 2 part 2
+
+
+*/
+
+html {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+	overflow:hidden;
+}
+
+h1 {
+	text-align:center;
+    color:#ab19ab;
+	font-family:"Comic Sans";
+    margin: 0;
+    padding: 0;
+}
+
+p {
+    margin: 0;
+    padding: 0;
+}
+
+img {
+	width:150px;
+	height:150px;
+	margin:0px;
+    padding: 0;
+	vertical-align:middle;
+	float:middle;
+}
+
+table {
+	font-family: Arial, Helvetica, Sans-Serif;
+	border: solid 2px #ab19ab;
+	padding: 2px;
+	border-radius: 5px;
+	box-shadow: 0px 1px 2px 0px #9C9C9C;
+	background-color: #FFFFFF;
+    width: auto;
+    height: auto;
+    margin: 5px;
+    padding: 0px;
+    overflow-x: hidden;
+	table-layout: fixed;
+}
+
+td {
+	border: none;
+    padding: 0;
+	text-align: center;
+    width:150px;
+	margin-left:0px;
+	margin-right:0px;
+	vertical-align:middle;
+	float:middle;
+}
+
+label {
+	width:auto;
+	height:20px;
+	padding: 0px;
+	border-radius: 0px;
+	font-size: 12px;
+	outline: none;
+	color: #474747;
+    margin: 0;
+	vertical-align:bottom;
+	float:left;
+}
+
+input[type="text"] {
+	width:150px;
+	height:20px;
+	border: solid 2px #ab19ab;
+	padding: 2px;
+	border-radius: 5px;
+	font-size: 12px;
+	box-shadow: 0px 1px 2px 0px #9C9C9C;
+	background-color: #FFFFFF;
+	outline: none;
+	color: #474747;
+    margin: 0;
+}
+
+input[type="button"] {
+	width:150px;
+	height:28px;
+	background-color:#b145c7;
+	border:1px solid #ab19ab;
+	border-radius: 5px;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	text-decoration:none;
+	margin-left:0px;
+	margin-right:0px;
+	vertical-align:middle;
+	float:middle;
+}
+
+textarea {
+	resize:none;
+    width:300px;
+    height:100%;
+	border: solid 2px #ab19ab;
+	padding: 2px;
+	border-radius: 5px;
+	font-size: 12px;
+	box-shadow: 0px 1px 2px 0px #9C9C9C;
+	background-color: #FFFFFF;
+	outline: none;
+	color: #474747;
+    margin: 0;
+}
